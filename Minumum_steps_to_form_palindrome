@@ -1,0 +1,37 @@
+ static int findMinReplacements(String inputString) {
+        int maxlength=0;
+       
+        if(ispalindrome(inputString)==1)
+            return 0;
+   for(int low=1;low<inputString.length();low++)
+   {
+       
+       for(int high=0;high<=inputString.length()-low;high++)
+       {
+           int validate=ispalindrome(inputString.substring(high,high+low));
+          // System.out.println(inputString.substring(j,j+i) +" "+j);
+           if(validate==1)
+           {
+              maxlength=low;
+               break;
+           }
+            
+       }
+       //  System.out.println("check"); 
+   }
+        return inputString.length()-maxlength;
+    }
+
+static int  ispalindrome(String input)
+{
+        char[] arr=input.toCharArray();
+        String str="";
+        for(int i=arr.length-1;i>=0;i--)
+            str=str+arr[i];
+    //System.out.println(str);
+        if(str.equals(input))
+            return 1;
+        else
+            return 0;
+}
+
