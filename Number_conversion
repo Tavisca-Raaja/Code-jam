@@ -1,0 +1,316 @@
+
+import java.util.*;
+public class Main
+{
+
+
+	static String get_input_output_type()
+	{
+		Scanner s=new Scanner(System.in);
+		String input=s.next();
+		switch(input)
+		{
+		case "decimal":
+			return "decimal";
+		case "binary":
+		    return "binary";
+		case "octal":
+			return "octal";
+		case "hex":
+			return "hex";
+					
+		default:
+			System.out.println("Enter a valid type");
+			return null;
+		}
+	
+	}
+
+static void decimalConversion(String convert_to,String value)
+	{
+		
+		String rem="";
+		int val=Integer.parseInt(value);
+		
+	    switch(convert_to)
+	    {
+	    case "binary":
+	    	while(val>0)
+			{
+	    		
+				rem= (val%2)+""+rem;
+				val=val/2;
+				
+			}
+	    	System.out.println(rem);
+	    	break;
+	    case "octal":
+	    	while(val>0)
+			{
+				rem= (val%8)+""+rem;
+				val=val/8;
+				
+			}
+	    	System.out.println(rem);
+	    	break;
+	    case "hex":
+	    	while(val>0)
+			{
+	    		int r=val%16;
+	    		if(r>9)
+	    		{
+	    			switch(r)
+	    			{
+	    			case 10:
+	    				rem="A"+rem;
+	    				break;
+	    			case 11:
+	    				rem="B"+rem;
+	    				break;
+	    			case 12:
+	    				rem="C"+rem;
+	    				break;
+	    			case 13:
+	    				rem="D"+rem;
+	    				break;
+	    			case 14:
+	    				rem="E"+rem;
+	    				break;
+	    			case 15:
+	    				rem="F"+rem;
+	    				break;
+	    			}
+	    		}
+	    		else
+				rem= (val%16)+""+rem;
+				val=val/16;
+				
+			}
+	    	System.out.println(rem);
+	    }
+			
+	}
+	
+	
+static void binaryConversion(String convert_to,String value)
+{
+	long val=Long.parseLong(value); 
+	int base=1;
+	int res=0;
+	String result="";
+	switch(convert_to)
+	{
+	case "decimal":
+		while(val>0)
+		{
+		 res=(((int)(val)%10)*base)+res;
+		 base=base*2;
+		 val=val/10;
+		}
+		System.out.println(res);
+		break;
+	case "octal":
+		String  finalresult="";
+		while(val>0)
+		{
+		    base=1;
+		    res=0;
+		    for(int i=0;i<3;i++)
+		    {
+		 res=((int)(val%10)*base)+res;
+		 base=base*2;
+		 val=val/10;
+		    }
+		    //System.out.println(res);
+		    finalresult=res+""+finalresult;
+		}
+	//	decimalConversion("octal"
+				//+ "",res+"");
+				System.out.println(finalresult);
+		
+    	break;
+		
+	case "hex":
+	    String  finals="";
+		while(val>0)
+		{
+		    base=1;
+		    res=0;
+		    for(int i=0;i<4;i++)
+		    {
+		 res=((int)(val%10)*base)+res;
+		 base=base*2;
+		 val=val/10;
+		}
+		
+		if(res>9)
+		{
+		 switch(res)
+	    			{
+	    			case 10:
+	    				finals="A"+""+finals;
+	    				break;
+	    			case 11:
+	    			finals="B"+""+finals;
+	    				break;
+	    			case 12:
+	    				finals="C"+""+finals;
+	    				break;
+	    			case 13:
+	    				finals="D"+""+finals;
+	    				break;
+	    			case 14:
+	    			finals="E"+""+finals;
+	    				break;
+	    			case 15:
+	    			finals="F"+""+finals;
+	    				break;
+	    			}   
+		}
+		else
+		finals=res+""+finals;
+		}
+	System.out.println(finals);
+		break;
+		
+		
+	}
+}
+
+static void octalConversion(String convert_to,String value)
+{
+	int base=1;
+	int val=Integer.parseInt(value);
+	String result="";
+	int res=0;
+	switch(convert_to)
+	{
+	case "decimal":
+		
+		while(val>0)
+		{
+			res=((val%10)*base)+res;
+			base=base*8;
+			val=val/10;
+		}
+		System.out.println(res);
+		break;
+	case "binary":
+		while(val>0)
+		{
+			res=((val%10)*base)+res;
+			base=base*8;
+			val=val/10;
+		}
+		decimalConversion("binary",res+"");
+		break;
+	case "hex":
+		while(val>0)
+		{
+			res=((val%10)*base)+res;
+			base=base*8;
+			val=val/10;
+		}
+		decimalConversion("hex",res+"");
+		break;
+	}
+}
+static void hexConversion(String convert_to,String value)
+{
+	int base=1;
+	int result=0;
+	int ascii=0;
+	switch(convert_to)
+	{
+	case "decimal":
+		for(int i=value.length()-1;i>=0;i--)
+		{
+			
+			ascii=(int)value.charAt(i);
+			
+			if(ascii-55>9 && ascii>57)
+			{
+			result=((ascii-55)*base)+result;
+			base=base*16;
+			}
+			else
+			{
+				result=((ascii-48)*base)+result;
+				base*=16;
+			}
+			System.out.println(result);
+			
+			
+		}
+		break;
+	case "binary":
+		for(int i=value.length()-1;i>=0;i--)
+		{
+			
+			ascii=(int)value.charAt(i);
+			
+			if(ascii>57)
+			{
+				//System.out.println(result+" "+ascii);
+				result=((ascii-55)*base)+result;
+				base=base*16;
+			}
+			else
+			{
+				result=((ascii-48)*base)+result;
+				base*=16;
+			}
+			//System.out.println(result+" "+ascii);
+			
+		}
+		decimalConversion("binary",result+"");
+		break;
+	case "octal":
+		for(int i=value.length()-1;i>=0;i--)
+		{
+			
+			ascii=(int)value.charAt(i);
+			
+			if(ascii-55>9 && ascii>57)
+			{
+			result=((ascii-55)*base)+result;
+			base=base*16;
+			}
+			else
+			{
+				result=((ascii-48)*base)+result;
+				base*=16;
+			}
+		
+			
+			
+		}
+		decimalConversion("octal",result+"");
+		break;
+		
+	}
+}
+	public static void main(String[] args)
+{
+	Scanner sc=new Scanner(System.in); 
+	System.out.println("Enter the input type:");
+	String convert_from=get_input_output_type();
+	System.out.println("Enter the input value:");
+	String  input_value=sc.next();
+	System.out.println("Enter the output type:");
+	String convert_to=get_input_output_type();
+	if(convert_from=="decimal")
+		decimalConversion(convert_to,input_value);
+	else if(convert_from=="binary")
+		binaryConversion(convert_to,input_value);
+	else if(convert_from=="octal")
+		octalConversion(convert_to,input_value);
+	else
+		hexConversion(convert_to,input_value);
+		
+}
+}
+
+
+
+
