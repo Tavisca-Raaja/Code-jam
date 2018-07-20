@@ -1,0 +1,27 @@
+ static long waitingTime(int[] tickets, int p) {
+
+       long no_of_steps=0;
+
+        for(int ticket_index=0;ticket_index<tickets.length;ticket_index++)
+        {
+            if(ticket_index<p)
+            {
+            if(tickets[ticket_index]>tickets[p])
+            no_of_steps+=tickets[p];
+            else
+            no_of_steps+=tickets[ticket_index];
+               System.out.println(tickets[ticket_index]+" >"+tickets[p]+" "+no_of_steps);  
+            }
+            else
+            {
+                if(tickets[ticket_index]>tickets[p] ||(tickets[ticket_index]==tickets[p] && ticket_index>p))
+                no_of_steps+=(tickets[p]-1);
+                    else
+                        no_of_steps+=(tickets[ticket_index]);
+                System.out.println(tickets[ticket_index]+" >"+tickets[p]+" "+no_of_steps); 
+            }
+        }
+        return no_of_steps;
+    }
+
+
