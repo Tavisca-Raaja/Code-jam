@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Codejam
+{
+    class Anagrams
+    {
+        int GetMaximumSubset(string[] words)
+        {
+            Dictionary<int, int> StringCount = new Dictionary<int, int>();
+            Dictionary<string, int> StringCheck = new Dictionary<string, int>();
+            int count = 0;
+            for (int index = 0; index < words.Length; index++)
+            {
+                int ascii_count = 0;
+                foreach (char str in words[index])
+                    ascii_count += ((str - '0') - 48);
+
+                if (!StringCount.ContainsKey(ascii_count))
+                {
+                    StringCount.Add(ascii_count, ++count);
+                    int length = words[index].Length;
+                    char[] arr = words[index].ToCharArray();
+                   // Console.WriteLine(words[index]);
+                    for (int i = 0; i < length - 1; i++)
+                    {
+                        for (int j = i + 1; j < length; j++)
+                        {
+                            if (arr[i] > arr[j])
+                            {
+                                char temp = arr[i];
+                                arr[i] = arr[j];
+                                arr[j] = temp;
+                            }
+                        }
+                    }
+                    string s = new string(arr);
+                   // Console.WriteLine(s);
+                    StringCheck.Add(s, 1);
+                }
+                else
+                {
+                    int length = words[index].Length;
+                    char[] arr = words[index].ToCharArray();
+                    //Console.WriteLine(words[index]);
+                    for (int i = 0; i < length - 1; i++)
+                    {
+                        for (int j = i + 1; j < length; j++)
+                        {
+                            if (arr[i] > arr[j])
+                            {
+                                char temp = arr[i];
+                                arr[i] = arr[j];
+                                arr[j] = temp;
+                            }
+                        }
+                    }
+                    string s = new string(arr);
+                    //Console.WriteLine(s);
+                    if (!StringCheck.ContainsKey(s))
+                    {
+
+                        StringCheck.Add(s, ++count);
+                    }
+                }
+
+            }
+
+            return count;
+        }
+
+        #region Testing code Do not change
+        public static void Main(String[] args)
+        {
+            String input = Console.ReadLine();
+            Anagrams anagramSolver = new Anagrams();
+            do
+            {
+                string[] words = input.Split(',');
+                Console.WriteLine(anagramSolver.GetMaximumSubset(words));
+                input = Console.ReadLine();
+            } while (input != "-1");
+        }
+        #endregion
+    }
+}
